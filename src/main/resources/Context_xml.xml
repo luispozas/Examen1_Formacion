@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<bean id="empleado" class="es.curso.examen.modelo.Empleado">
+		<property name="codigo" value="12345"></property>
+		<property name="nombre" value="Luis"></property>
+		<property name="empresa" value="Capgemini"></property>
+		<property name="perfil" value="Junior"></property>
+	</bean>
+	
+	<bean id="empleadoDAO" class="es.curso.examen.dao.EmpleadoDAO"></bean>
+	
+	<bean id="intercepta" class="es.curso.examen.intercepta.Intercepta"></bean>
+	
+	
+	<!-- CONFIGURACION DE ASPECTOS PARA DESACOPLAR EL CODIGO -->
+	<!-- El punto de corte detecta cuando se ejecuta el metodo create(), update() y delete() de la 
+	interface IEmpleadoDAO -->
+	
+	<aop:config >
+		<aop:aspect ref="intercepta">                                                   
+			<aop:pointcut expression="execution(* es.curso.examen.dao.EmpleadoDAO.create(..)) and args(e)" id="pcCreate"/>
+			<aop:pointcut expression="execution(* es.curso.examen.dao.EmpleadoDAO.delete(..)) and args(codigo)" id="pcDelete"/>
+			<aop:pointcut expression="execution(* es.curso.examen.dao.EmpleadoDAO.update(..)) and args(e)" id="pcUpdate"/>
+			
+			
+			<aop:after-returning method="createIntercept" arg-names="e" pointcut-ref="pcCreate"/>
+			
+			<aop:after-returning method="deleteIntercept" arg-names="codigo" pointcut-ref="pcDelete"/>
+			
+			<aop:after-returning method="updateIntercept" arg-names="e" pointcut-ref="pcUpdate"/>
+					
+			
+		</aop:aspect>
+	
+	</aop:config>
+
+</beans>

@@ -1,0 +1,6 @@
+09/07/2021 08:57:56.341	Create of Empleado [codigo=12345, nombre=Luis, empresa=Capgemini, perfil=Junior]
+09/07/2021 08:57:56.345	Delete with code12345
+09/07/2021 08:57:56.346	Update of Empleado [codigo=12345, nombre=Luis, empresa=Capgemini, perfil=Junior]
+09/07/2021 09:14:37.770	Create of Empleado [codigo=12345, nombre=Luis, empresa=Capgemini, perfil=Junior]
+09/07/2021 09:14:37.788	Delete with code12345
+09/07/2021 09:14:37.792	Update of Empleado [codigo=12345, nombre=Luis, empresa=Capgemini, perfil=Junior]
